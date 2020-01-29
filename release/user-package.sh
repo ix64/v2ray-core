@@ -48,22 +48,28 @@ build_v2() {
 	popd
 }
 
-build_dat() {
+download_dat() {
 	echo ">>> Downloading newest geoip ..."
 	wget -qO - https://api.github.com/repos/v2ray/geoip/releases/latest \
 	| grep browser_download_url | cut -d '"' -f 4 \
-	| wget -i - -O $TMP/geoip.dat
+	| wget -i - -O $SRCDIR/release/config/geoip.dat
 
 	echo ">>> Downloading newest geosite ..."
 	wget -qO - https://api.github.com/repos/v2ray/domain-list-community/releases/latest \
 	| grep browser_download_url | cut -d '"' -f 4 \
-	| wget -i - -O $TMP/geosite.dat
+	| wget -i - -O $SRCDIR/release/config/geosite.dat
 }
 
 copyconf() {
 	echo ">>> Copying config..."
 	pushd $SRCDIR/release/config
 	tar c --exclude "*.dat" . | tar x -C $TMP
+}
+
+copydat() {
+	echo ">>> Copying dat..."
+	cp $SRCDIR/release/config/geosite.dat $TMP
+	cp $SRCDIR/release/config/geoip.dat $TMP
 }
 
 packzip() {
@@ -140,11 +146,14 @@ case $arg in
 	buildname=*)
 		BUILDNAME=${arg##buildname=}
 		;;
+  download)
+      download_dat
+      ;;
 esac
 done
 
 if [[ $nosource != 1 ]]; then
-  get_source	
+  get_source
 fi
 
 export GOOS GOARCH
@@ -153,11 +162,11 @@ echo "PKG ARGS: pkg=${pkg}"
 build_v2
 
 if [[ $nodat != 1 ]]; then
-  build_dat
+  copydat
 fi
 
 if [[ $noconf != 1 ]]; then
-  copyconf 
+  copyconf
 fi
 
 if [[ $pkg == "zip" ]]; then
@@ -170,4 +179,3 @@ fi
 
 
 cleanup
-

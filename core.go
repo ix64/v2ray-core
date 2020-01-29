@@ -20,8 +20,8 @@ import (
 
 var (
 	version  = "4.22.1"
-	build    = "Custom"
-	codename = "V2Fly, a community-driven edition of V2Ray."
+	build    = "IXarea"
+	codename = "ApiEnhanced"
 	intro    = "A unified platform for anti-censorship."
 )
 
