@@ -2,3 +2,4 @@
 bazel-*
 .idea
 release/*.zip
+release/config/*.dat

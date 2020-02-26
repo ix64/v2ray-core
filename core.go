@@ -19,9 +19,9 @@ import (
 )
 
 var (
-	version  = "4.22.1"
-	build    = "IXarea"
-	codename = "ApiEnhanced"
+	version  = "0.0.0-debug"
+	build    = ""
+	codename = "IXarea-Enhanced"
 	intro    = "A unified platform for anti-censorship."
 )
 
