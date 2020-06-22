@@ -43,6 +43,7 @@ type KCPConfig struct {
 	ReadBufferSize  *uint32         `json:"readBufferSize"`
 	WriteBufferSize *uint32         `json:"writeBufferSize"`
 	HeaderConfig    json.RawMessage `json:"header"`
+	Seed            *string         `json:"seed"`
 }
 
 // Build implements Buildable.
@@ -98,6 +99,10 @@ func (c *KCPConfig) Build() (proto.Message, error) {
 			return nil, newError("invalid mKCP header config").Base(err).AtError()
 		}
 		config.HeaderConfig = serial.ToTypedMessage(ts)
+	}
+
+	if c.Seed != nil {
+		config.Seed = &kcp.EncryptionSeed{Seed: *c.Seed}
 	}
 
 	return config, nil
@@ -269,12 +274,13 @@ func (c *TLSCertConfig) Build() (*tls.Certificate, error) {
 }
 
 type TLSConfig struct {
-	Insecure         bool             `json:"allowInsecure"`
-	InsecureCiphers  bool             `json:"allowInsecureCiphers"`
-	Certs            []*TLSCertConfig `json:"certificates"`
-	ServerName       string           `json:"serverName"`
-	ALPN             *StringList      `json:"alpn"`
-	DiableSystemRoot bool             `json:"disableSystemRoot"`
+	Insecure                 bool             `json:"allowInsecure"`
+	InsecureCiphers          bool             `json:"allowInsecureCiphers"`
+	Certs                    []*TLSCertConfig `json:"certificates"`
+	ServerName               string           `json:"serverName"`
+	ALPN                     *StringList      `json:"alpn"`
+	DisableSessionResumption bool             `json:"disableSessionResumption"`
+	DisableSystemRoot        bool             `json:"disableSystemRoot"`
 }
 
 // Build implements Buildable.
@@ -297,7 +303,8 @@ func (c *TLSConfig) Build() (proto.Message, error) {
 	if c.ALPN != nil && len(*c.ALPN) > 0 {
 		config.NextProtocol = []string(*c.ALPN)
 	}
-	config.DisableSystemRoot = c.DiableSystemRoot
+	config.DisableSessionResumption = c.DisableSessionResumption
+	config.DisableSystemRoot = c.DisableSystemRoot
 	return config, nil
 }
 

@@ -5,6 +5,8 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -175,6 +177,14 @@ func (c *loggerServiceClient) RestartLogger(ctx context.Context, in *RestartLogg
 // LoggerServiceServer is the server API for LoggerService service.
 type LoggerServiceServer interface {
 	RestartLogger(context.Context, *RestartLoggerRequest) (*RestartLoggerResponse, error)
+}
+
+// UnimplementedLoggerServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedLoggerServiceServer struct {
+}
+
+func (*UnimplementedLoggerServiceServer) RestartLogger(ctx context.Context, req *RestartLoggerRequest) (*RestartLoggerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RestartLogger not implemented")
 }
 
 func RegisterLoggerServiceServer(s *grpc.Server, srv LoggerServiceServer) {

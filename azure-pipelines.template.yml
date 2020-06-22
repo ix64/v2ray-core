@@ -9,8 +9,14 @@ jobs:
   - checkout: self
   - task: GoTool@0
     inputs:
-      version: '1.13'
+      version: '1.14'
   - script: |
       go test -p 1 -v -timeout 30m ./...
     workingDirectory: '$(Build.SourcesDirectory)'
     displayName: 'Test'
+
+  - script: |
+      go build ./common/buf
+    condition: always()
+    workingDirectory: '$(Build.SourcesDirectory)'
+    displayName: 'Test Buf error'
