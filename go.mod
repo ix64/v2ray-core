@@ -6,7 +6,7 @@ require (
 	github.com/dgryski/go-metro v0.0.0-20180109044635-280f6062b5bc // indirect
 	github.com/golang/mock v1.4.3
 	github.com/golang/protobuf v1.4.2
-	github.com/google/go-cmp v0.5.0
+	github.com/google/go-cmp v0.5.2
 	github.com/gorilla/websocket v1.4.2
 	github.com/miekg/dns v1.1.29
 	github.com/refraction-networking/utls v0.0.0-20200601200209-ada0bb9b38a0
