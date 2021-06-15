@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/dgryski/go-metro v0.0.0-20180109044635-280f6062b5bc // indirect
-	github.com/golang/mock v1.4.3
+	github.com/golang/mock v1.6.0
 	github.com/golang/protobuf v1.4.2
 	github.com/google/go-cmp v0.5.0
 	github.com/gorilla/websocket v1.4.2
@@ -15,10 +15,10 @@ require (
 	github.com/xiaokangwang/VSign v0.0.0-20200704130305-63f4b4d7a751
 	go.starlark.net v0.0.0-20200619143648-50ca820fafb9
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
-	golang.org/x/net v0.0.0-20200602114024-627f9648deb9
-	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
-	golang.org/x/sys v0.0.0-20200724161237-0e2f3a69832c
+	golang.org/x/net v0.0.0-20210405180319-a5a99cb37ef4
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
+	golang.org/x/sys v0.0.0-20210510120138-977fb7262007
 	google.golang.org/grpc v1.30.0
-	google.golang.org/protobuf v1.25.0
+	google.golang.org/protobuf v1.25.0 // indirect
 	h12.io/socks v1.0.0
 )
